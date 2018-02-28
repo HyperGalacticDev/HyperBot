@@ -1,4 +1,4 @@
 module.exports.run = async (client, message, args) =>{
 
-    message.channel.send("teste");
+    message.channel.send("Pong <3");
 }

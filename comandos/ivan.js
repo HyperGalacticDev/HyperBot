@@ -1,9 +1,7 @@
 module.exports.run = async (client, message, args) =>{
 
-    message.channel.send("teste");
-
+    message.channel.send("ivan");
 }
-
 module.exports.config = {
-    comando = "ping"
+    comando = "ivan"
 }

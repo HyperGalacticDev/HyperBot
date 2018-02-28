@@ -4,7 +4,9 @@ const client = new Discord.Client();
 const preferencias = require('./preferences.json');
 const prefix = preferencias.prefix;
 const fs = require('fs');
-client.commands = new Discord.Collection();
+comandos = new Discord.Collection();
+
+
 fs.readdir('./comandos/', (err, files) =>{
     if(err) console.log(err);
 
@@ -14,7 +16,7 @@ fs.readdir('./comandos/', (err, files) =>{
     jsfiles.forEach((f, i) => {
         var cmds = require(`./comandos/${f}`);
         console.log(`Lendo comando ${f}`);
-        client.commands.set(cmds.config.comando, cmds);
+        comandos.set(cmds.config.comando, cmds);
 
     });
 
@@ -38,8 +40,8 @@ var args = cont.slice(1);
 
 if(!message.content.startsWith(prefix)) return;
 
-var cmd = client.commands.get(cont[0]);
-if(cmd) cmd.run(client, message, args);
-
-
+var cmd = comandos.get(cont[0]);
+if(cmd) {
+    cmd.run(client, message, args);
+}
 });

@@ -4,27 +4,12 @@ const client = new Discord.Client();
 const preferencias = require('./preferences.json');
 const prefix = preferencias.prefix;
 const fs = require('fs');
-comandos = new Discord.Collection();
-
-
-fs.readdir('./comandos/', (err, files) =>{
-    if(err) console.log(err);
-
-    var jsfiles = files.filter(f => f.split('.').pop == "js");
-    if(jsfiles.lenght >= 0) console.log('Nenhum comando encontrado.');
-
-    jsfiles.forEach((f, i) => {
-        var cmds = require(`./comandos/${f}`);
-        console.log(`Lendo comando ${f}`);
-        comandos.set(cmds.config.comando, cmds);
-
-    });
-
-});
+var comandos = new Discord.Collection();
 
 client.login(preferencias.token);
 
 client.on('ready', () =>{
+
 
 console.log('O Bot foi iniciado com sucesso.'.green);
 console.log(`O meu prefixo é ${prefix}`);
@@ -36,12 +21,16 @@ client.on('message', message =>{
 var autor = message.author;
 var msg = message.content.toUpperCase();
 var cont = message.content.slice(prefix.lenght).split('');
-var args = cont.slice(1);
 
 if(!message.content.startsWith(prefix)) return;
 
-var cmd = comandos.get(cont[0]);
-if(cmd) {
-    cmd.run(client, message, args);
-}
+  const args = message.content.slice(prefix.length).trim().split(/ +/g);
+  const command = args.shift().toLowerCase();
+
+  try {
+    let commandFile = require(`./comandos/${command}.js`);
+    commandFile.run(client, message, args);
+  } catch (err) {
+    console.error(err);
+  }
 });

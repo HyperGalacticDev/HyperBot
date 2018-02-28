@@ -7,7 +7,7 @@ module.exports.run = async (client, message, args) =>{
           message.reply("Insira o status de watching");
         }
   
-        bot.user.setActivity(`${args}`, {
+        client.user.setActivity(`${args}`, {
           type: 'WATCHING',
         });
 

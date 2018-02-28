@@ -1,4 +1,4 @@
-module.exports.run = async (bot, message, args) =>{
+module.exports.run = async (client, message, args) =>{
     if(message.member.id == "298139759463890944") {
     
         let args = message.content.split(' ').slice(1).join(' ');
@@ -7,7 +7,7 @@ module.exports.run = async (bot, message, args) =>{
           message.reply("Insira o status de streaming");
         }
   
-        bot.user.setActivity(`${args}`, {
+        client.user.setActivity(`${args}`, {
           type: 'STREAMING',
           url: 'https://twitch.tv/hypergalacticdeveloper',
         });

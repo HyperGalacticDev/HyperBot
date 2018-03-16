@@ -5,6 +5,7 @@ module.exports.run = async (client, message, args) =>{
   
         if(!args){
           message.reply("Insira o status de streaming");
+          return;
         }
   
         client.user.setActivity(`${args}`, {
